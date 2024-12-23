@@ -6,7 +6,7 @@
 #    By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 17:29:28 by ael-rhai          #+#    #+#              #
-#    Updated: 2024/12/19 13:07:13 by ael-rhai         ###   ########.fr        #
+#    Updated: 2024/12/22 20:53:55 by ael-rhai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,25 +14,39 @@ ifeq ($(HOSTTYPE),)
 HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
+NAME = libft_malloc_$(HOSTTYPE).so
+SYMLINK = libft_malloc.so
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -fPIC
+SRC = src/area.c src/block.c src/free_helpers.c src/free.c src/global.c\
+	src/helpers.c src/malloc.c src/realloc.c src/show_memory.c main.c
+OBJ = $(SRC:.c=.o)
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-CC=gcc
-FLAGS= -Wall -Wextra -Werror
-NAME=malloc
-SRC=main.c src/malloc.c src/global.c
 
-all: $(NAME)
+all: $(NAME) $(SYMLINK)
 
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) -shared -o $@ $^
 
-$(NAME): $(SRC)
-	@$(CC) $^ -o $@
-	@echo "\033[32m Compilation success\033[0m"
+$(SYMLINK): $(NAME)
+	ln -sf $< $(SYMLINK)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -Iincludes -c $< -o $@
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	@rm -rf src/*.o
-	@echo "\033[31m object files deleted\033[0m"
+	rm -f $(OBJ)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@rm -rf $(NAME)
-	@echo "\033[31m program terminated\033[0m"
+	rm -f $(NAME) $(SYMLINK)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re

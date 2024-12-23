@@ -1,16 +1,12 @@
-#include "includes/malloc.h"
-
+#include "./includes/malloc.h"
 
 
 int main()
 {
-
-    char *ptr  = (char *)malloc(2);
-    ptr[0] = 'a';
-    ptr[1] = '\0';
+    // char *str = my_malloc(10);
+    // printf ("%p\n", str);
 
 
-        printf ("%s\n", ptr);
-    
     return (0);
 }
+

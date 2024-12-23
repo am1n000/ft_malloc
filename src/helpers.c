@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 10:28:11 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/20 17:15:13 by ael-rhai         ###   ########.fr       */
+/*   Created: 2024/12/21 09:18:17 by ael-rhai          #+#    #+#             */
+/*   Updated: 2024/12/22 14:35:05 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/malloc.h"
 
-void	ft_putnbr_fd(int n, int fd)
+
+size_t	get_large_size(size_t size)
 {
-	unsigned int	p;
+	return((size + AREA_HEADER_SIZE + BLOCK_HEADER_SIZE)
+			+ (PAGE_SIZE-1)) & ~(PAGE_SIZE-1);
+}
 
-	p = n;
-	if (n < 0)
+void	print_num_base(size_t nb, char base, bool prefix)
+{
+	char	*str;
+
+	str = "0123456789ABCDEF";
+	if (nb / base)
+		print_num_base(nb / base, base, prefix);
+	else
 	{
-		p = n * -1;
-		write (fd, "-", 1);
+		if (prefix)
+			ft_putstr_fd("0x", 1);
 	}
-	if (p <= 9)
-		ft_putchar_fd(p + '0', fd);
-	if (p > 9)
-	{
-		ft_putnbr_fd(p / 10, fd);
-		ft_putnbr_fd(p % 10, fd);
-	}
+	write(1, &str[nb % base], 1);
 }
