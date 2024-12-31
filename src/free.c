@@ -6,7 +6,7 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 08:34:50 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/22 20:45:47 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2024/12/31 13:55:17 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void    start_free(void *ptr)
     }
 }
 
-void    my_free(void *ptr)
+void    free(void *ptr)
 {
     if (ptr == NULL)
     {

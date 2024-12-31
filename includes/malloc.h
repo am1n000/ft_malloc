@@ -6,7 +6,7 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 08:36:37 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/22 20:39:40 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2024/12/31 13:55:09 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ extern pthread_mutex_t  g_mutex;
 /*-----------------------  functions  --------------------------*/
 
 int     select_area_type(size_t size);
-void    *my_malloc(size_t size);
-void    *my_realloc(void *ptr, size_t size);
-void    my_free(void *ptr);
+void    *malloc(size_t size);
+void    *realloc(void *ptr, size_t size);
+void    free(void *ptr);
 void    show_alloc_mem();
 void	print_num_base(size_t nb, char base, bool prefix);
 void    remove_area(t_area **area, t_block **block);
