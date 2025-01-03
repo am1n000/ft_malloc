@@ -6,7 +6,7 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 11:50:38 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/31 13:55:38 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:26:22 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void    *start_realloc(void *ptr, size_t size)
 	void	*new_ptr;
 
 	if (!ptr)
-		return (malloc(size));
+		return (start_malloc(size));
 	if (size == 0)
 	{
-		free(ptr);
+		start_free(ptr);
 		return (NULL);
 	}
     block = find_pointer(ptr);
@@ -50,9 +50,9 @@ void    *start_realloc(void *ptr, size_t size)
 		return (NULL);
 	if (size == block->data_size)
 		return (ptr);
-	new_ptr = malloc(size);
+	new_ptr = start_malloc(size);
 	ft_memmove(new_ptr, ptr, block->data_size > size ? size : block->data_size);
-	free(ptr);
+	start_free(ptr);
 	return (new_ptr);
 }
 

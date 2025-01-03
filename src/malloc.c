@@ -6,7 +6,7 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:14:41 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/31 13:55:24 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:36:48 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void *start_malloc(size_t size)
     
     if (size == 0)
         return (NULL);
-    size = (size + 15) & ~15; //for the alignment
+    size = (size + 15) & ~15;
     ptr = allocate(size);
     return (ptr);
 }
@@ -53,7 +53,6 @@ void *start_malloc(size_t size)
 void    *malloc(size_t size)
 {
     void* ptr;
-    
     pthread_mutex_lock(&g_mutex);
     ptr = start_malloc(size);
     pthread_mutex_unlock(&g_mutex);

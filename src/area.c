@@ -6,12 +6,11 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 20:33:16 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/22 20:44:53 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:01:11 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
-
 
 void    *create_area(size_t size, t_area_type area_type)
 {
@@ -36,14 +35,14 @@ void    *create_area(size_t size, t_area_type area_type)
         return (NULL);
     ft_bzero(area, PAGE_SIZE);
 	area->block_count = 0;
-	area->free_size = PAGE_SIZE - AREA_HEADER_SIZE;
+	area->free_size = allocation_size - AREA_HEADER_SIZE;
 	area->prev = NULL;
 	area->next = g_areas;
 	area->type = area_type;
     return (area);
 }
 
-t_block *   add_new_area(t_area **area, size_t size, t_area_type area_type)
+t_block *   add_new_area(size_t size, t_area_type area_type)
 {
         t_block *block;
         t_area  *tmp_areas;
@@ -55,7 +54,7 @@ t_block *   add_new_area(t_area **area, size_t size, t_area_type area_type)
         set_block(&block, size);
         tmp_areas->block_count++;
         tmp_areas->free_size -= size + BLOCK_HEADER_SIZE;
-        (*area)->prev = tmp_areas;
+        g_areas->prev = tmp_areas;
         g_areas = tmp_areas;
         return (block);
         

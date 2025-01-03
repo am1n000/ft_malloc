@@ -6,7 +6,7 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 20:34:34 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/22 20:45:30 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:57:48 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,14 @@ t_block    *place_tiny_small_block(size_t size, t_area_type area_type)
                     tmp_areas->block_count++;
                     new_block->prev = block;
                     block->next = new_block;
+                    tmp_areas->free_size -= size + BLOCK_HEADER_SIZE;
                     return(new_block);
                 }
                 block = block->next;
             }
         }
         if (tmp_areas->next == NULL)
-            return (add_new_area(&tmp_areas, size, area_type));
+            return (add_new_area(size, area_type));
         tmp_areas = tmp_areas->next;
     }
     return (NULL);

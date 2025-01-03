@@ -6,7 +6,7 @@
 /*   By: ael-rhai <ael-rhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 08:36:37 by ael-rhai          #+#    #+#             */
-/*   Updated: 2024/12/31 13:55:09 by ael-rhai         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:38:20 by ael-rhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ int     select_area_type(size_t size);
 void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
 void    free(void *ptr);
+void    *start_malloc(size_t size);
+void    start_free(void *ptr);
 void    show_alloc_mem();
 void	print_num_base(size_t nb, char base, bool prefix);
-void    remove_area(t_area **area, t_block **block);
+void    remove_area(t_area **area, t_block **block, bool only_area_type);
 void    remove_last_block(t_area **area, t_block **block);
 void    merge_previous_block(t_area **area, t_block **block);
 void    merge_next_block(t_area **area, t_block **block);
@@ -88,7 +90,7 @@ void    *allocate_block(size_t size, t_area_type area_type);
 void    print_area(t_area *area);
 size_t	get_large_size(size_t size);
 t_block *place_tiny_small_block(size_t size, t_area_type area_type);
-t_block *add_new_area(t_area **area, size_t size, t_area_type area_type);
+t_block *add_new_area(size_t size, t_area_type area_type);
 t_block *allocate_large(size_t size);
 
 #endif
